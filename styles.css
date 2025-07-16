@@ -407,3 +407,71 @@ h3 {
 }
 
 /********* SEXTA SECCION ***********/
+
+.custom-btn {
+  background-color: #00ff00;
+  border-color: #00ff00;
+}
+
+.custom-btn:hover {
+  background-color: #00cc00;
+  border-color: #00cc00;
+}
+
+/************** SECCION DE FORMULARIO *******************/
+
+.form-control:focus {
+  border-color: #00ff00;
+  box-shadow: 0 0 0 3px #00ff00;
+  outline: none;
+}
+
+.form-label {
+  color: #00ff00;
+  font-size: 1rem;
+}
+
+.btn-form {
+  background-color: #00ff00;
+  border-color: #00ff00;
+  color: #000;
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.btn-form:hover {
+  background-color: transparent;
+  border: 3px solid #00ff00;
+  color: #00ff00;
+}
+
+.form-control {
+  font-size: 1rem;
+  padding: 0.75rem;
+  padding-right: 2.5rem;
+  height: auto;
+}
+
+.container-custom {
+  padding-left: 0.5cm;
+  padding-right: 0.5cm;
+}
+
+.button-container {
+  margin-top: 2rem;
+}
+
+.input-icon {
+  position: absolute;
+  right: 15px;
+  top: 70%;
+  transform: translateY(-50%);
+  color: #000;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
+  width: 1.2rem;
+  line-height: 1.75rem;
+  vertical-align: middle;
+}
+
