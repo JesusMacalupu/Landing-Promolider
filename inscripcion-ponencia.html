@@ -3,8 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="description" content="Inscríbete gratis al Reto de 3 Días y descubre el sistema que permite a los productores ganar sin vender directamente. ¡Clase en vivo muy pronto!">
-    <meta name="keywords" content="reto 3 días, clase en vivo, productores digitales, ganar sin vender, inscripción Promolíder, marketing digital, ventas sin vender, sistema de productores, Promolíder">
+    <meta name="description"
+        content="Inscríbete gratis al Reto de 3 Días y descubre el sistema que permite a los productores ganar sin vender directamente. ¡Clase en vivo muy pronto!">
+    <meta name="keywords"
+        content="reto 3 días, clase en vivo, productores digitales, ganar sin vender, inscripción Promolíder, marketing digital, ventas sin vender, sistema de productores, Promolíder">
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,8 +21,12 @@
     <!-- Contenedor negro -->
     <div class="contenedor contenedor-negro d-flex flex-column flex-md-row">
         <div class="w-100 w-md-50 p-3">
-            <img src="img-landing/logoPromolider.webp" alt="Promolíder" class="logo"><br><br>
-            <span class="badge-custom">N° de Cupos: 50</span><br>
+            <img src="img-landing/logoPromolider.webp" alt="Promolíder" class="logo">
+            <div class="countdown-title" id="num-cupos" style="margin-top: 45px;">Quedan 50 cupos disponibles</div>
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+                <div class="progress-text">50/100</div>
+            </div>
             <h2 class="highlight-green mt-4">¡LA CLASE EN VIVO COMIENZA PRONTO!</h2><br>
             <h5 class="text-light mb-2">Reto 3 días, descubre</h5><br>
             <h3 class="fw-bold text-white">
@@ -50,9 +56,7 @@
                     </div>
                 </div>
 
-                <div class="mensaje-inferior" style="font-weight: bold;">Pronto comenzará la ponencia . . .</div>
-                <div class="countdown-title" id="num-cupos" style="margin-top: 45px;">Solo quedan 50 cupos disponibles
-                </div>
+                <div class="mensaje-inferior" style="font-weight: bold; cursor: pointer;">Reservar mi Cupo</div>
             </div>
         </div>
     </div>
@@ -312,7 +316,7 @@
                 </div>
             </div>
 
-            <!-- Sección derecha (testimonio) - Ocupa 1/3 -->
+            <!-- Sección derecha Ocupa 1/3 -->
             <div id="targetSection" class="col-md-4 p-4 p-lg-5" style="background-color: #24292e;">
                 <p class="display-5 fw-bold mb-4 text-black text-center fs-2" style="color: #00FF00 !important;">
                     FORMULARIO DE REGISTRO</p>
@@ -347,6 +351,7 @@
                     </div>
                 </div>
                 <script>
+                    // Función de desplazamiento suave
                     function scrollToSection() {
                         const target = document.getElementById('targetSection');
                         const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
@@ -354,6 +359,7 @@
                         const distance = targetPosition - startPosition;
                         const duration = 400;
                         let start = null;
+
                         function animation(currentTime) {
                             if (start === null) start = currentTime;
                             const timeElapsed = currentTime - start;
@@ -361,14 +367,23 @@
                             window.scrollTo(0, run);
                             if (timeElapsed < duration) requestAnimationFrame(animation);
                         }
+
                         function ease(t, b, c, d) {
                             t /= d / 2;
                             if (t < 1) return c / 2 * t * t * t + b;
                             t -= 2;
                             return c / 2 * (t * t * t + 2) + b;
                         }
+
                         requestAnimationFrame(animation);
                     }
+
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const botonReserva = document.querySelector('.mensaje-inferior');
+                        if (botonReserva) {
+                            botonReserva.addEventListener('click', scrollToSection);
+                        }
+                    });
                 </script>
             </div>
         </div>
