@@ -4,6 +4,173 @@ body {
   font-family: 'Segoe UI', sans-serif;
 }
 
+/************ CUENTA REGRESIVA **************/
+
+/* ===== ESTILOS BASE (DESKTOP ≥993px) ===== */
+.w-50 {
+  width: 50%;
+}
+
+.p-3 {
+  padding: 1rem;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.countdown-wrapper {
+  text-align: center;
+  color: #00ff00;
+}
+
+.countdown-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #00ff00;
+  text-shadow: 0 0 10px #00ff00;
+}
+
+.countdown-container {
+  display: flex;
+  gap: 25px;
+  justify-content: center;
+  font-size: 3.2rem;
+  text-shadow: 0 0 20px #00ff00;
+}
+
+.countdown-item {
+  background: rgba(0, 255, 0, 0.1);
+  border: 2px solid #00ff00;
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px #00ff00;
+  min-width: 110px;
+  transition: transform 0.3s ease;
+}
+
+.countdown-item:hover {
+  transform: scale(1.1);
+}
+
+.label {
+  font-size: 1.1rem;
+  color: #aaffaa;
+  text-shadow: none;
+}
+
+.mensaje-inferior {
+  margin-top: 35px;
+  background-color: #00ff00;
+  color: #000;
+  padding: 18px 25px;
+  border-radius: 12px;
+  font-size: 1.3rem;
+  box-shadow: 0 0 15px #00ff00;
+  display: inline-block;
+}
+
+/* ===== TABLETS (577px - 992px) ===== */
+@media (max-width: 992px) {
+  .countdown-title {
+    font-size: 1.8rem;
+  }
+  
+  .countdown-container {
+    gap: 18px;
+    font-size: 2.7rem;
+  }
+  
+  .countdown-item {
+    padding: 20px;
+    min-width: 90px;
+  }
+  
+  .mensaje-inferior {
+    font-size: 1.1rem;
+    padding: 15px 20px;
+  }
+}
+
+/* ===== TABLETS PEQUEÑAS (577px - 768px) ===== */
+@media (max-width: 768px) {
+  .contenedor-negro {
+    flex-direction: column;
+  }
+  
+  .w-md-50 {
+    width: 100% !important;
+  }
+  
+  .countdown-wrapper {
+    margin-top: 40px;
+  }
+  
+  .countdown-container {
+    gap: 15px;
+    font-size: 2.4rem;
+  }
+  
+  .countdown-item {
+    min-width: 80px;
+    padding: 18px;
+  }
+}
+
+/* ===== MOVILES (≤576px) ===== */
+@media (max-width: 576px) {
+  .countdown-title {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+  
+  .countdown-container {
+    gap: 8px;
+    font-size: 1.8rem;
+  }
+  
+  .countdown-item {
+    padding: 12px 8px;
+    min-width: 65px;
+    border-radius: 10px;
+  }
+  
+  .label {
+    font-size: 0.8rem;
+  }
+  
+  .mensaje-inferior {
+    font-size: 1rem;
+    padding: 12px 16px;
+    margin-top: 25px;
+  }
+  
+  #num-cupos {
+    font-size: 1.1rem;
+  }
+}
+
+/* ===== MOVILES PEQUEÑOS (≤400px) ===== */
+@media (max-width: 400px) {
+  .countdown-container {
+    font-size: 1.5rem;
+    gap: 5px;
+  }
+  
+  .countdown-item {
+    min-width: 55px;
+    padding: 10px 5px;
+  }
+}
+
 /* Base de todos los contenedores */
 .contenedor {
   width: 100%;
@@ -478,33 +645,38 @@ h3 {
 /******* SECCION FINAL ********/
 
 .quote {
-    font-size: 1.5rem; /* Tamaño del texto */
-    margin-bottom: 20px;
+  font-size: 1.5rem;
+  /* Tamaño del texto */
+  margin-bottom: 20px;
 }
 
 .question {
-    border: 3px solid #00ff00; /* Color verde y grosor del borde */
-    border-radius: 15px;
-    padding: 20px;
-    display: inline-block;
-    margin-top: 20px;
-    color: #00ff00;
-    font-size: 1.5rem; 
+  border: 3px solid #00ff00;
+  /* Color verde y grosor del borde */
+  border-radius: 15px;
+  padding: 20px;
+  display: inline-block;
+  margin-top: 20px;
+  color: #00ff00;
+  font-size: 1.5rem;
 }
 
 .custom-bg {
-    padding: 50px;
+  padding: 50px;
 }
 
 @media (max-width: 768px) {
-    .quote, .question {
-        font-size: 1.2rem; 
-    }
+
+  .quote,
+  .question {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 576px) {
-    .quote, .question {
-        font-size: 1rem;
-    }
-}
 
+  .quote,
+  .question {
+    font-size: 1rem;
+  }
+}

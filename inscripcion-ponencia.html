@@ -14,14 +14,74 @@
 
 <body>
     <!-- Contenedor negro -->
-    <div class="contenedor contenedor-negro">
-        <img src="img-landing/logoPromolider.webp" alt="Promolíder" class="logo"><br><br>
-        <span class="badge-custom">Contador de cupos</span><br>
-        <h2 class="highlight-green mt-4">¡LA CLASE EN VIVO COMIENZA PRONTO!</h2><br>
-        <h5 class="text-light mb-2">Reto 3 días, descubre</h5><br>
-        <h3 class="fw-bold text-white">
-            “EL SISTEMA QUE PERMITE A PRODUCTORES <br>GANAR SIN VENDER DIRECTAMENTE”
-        </h3>
+    <div class="contenedor contenedor-negro d-flex flex-column flex-md-row">
+        <div class="w-100 w-md-50 p-3">
+            <img src="img-landing/logoPromolider.webp" alt="Promolíder" class="logo"><br><br>
+            <span class="badge-custom">N° de Cupos: 50</span><br>
+            <h2 class="highlight-green mt-4">¡LA CLASE EN VIVO COMIENZA PRONTO!</h2><br>
+            <h5 class="text-light mb-2">Reto 3 días, descubre</h5><br>
+            <h3 class="fw-bold text-white">
+                “EL SISTEMA QUE PERMITE A PRODUCTORES <br class="d-none d-md-block">GANAR SIN VENDER DIRECTAMENTE”
+            </h3>
+        </div>
+        <div class="w-100 w-md-50 p-3 d-flex justify-content-center align-items-center" style="min-height: 100%;">
+            <div class="countdown-wrapper">
+                <div class="countdown-title">¡Cuenta regresiva!</div>
+
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <div id="days">00</div>
+                        <div class="label">DÍAS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="hours">00</div>
+                        <div class="label">HORAS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="minutes">00</div>
+                        <div class="label">MINUTOS</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div id="seconds">00</div>
+                        <div class="label">SEGUNDOS</div>
+                    </div>
+                </div>
+
+                <div class="mensaje-inferior" style="font-weight: bold;">Pronto comenzará la ponencia . . .</div>
+                <div class="countdown-title" id="num-cupos" style="margin-top: 45px;">Solo quedan 50 cupos disponibles
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Fecha de destino
+        const targetDate = new Date("2025-12-31T23:59:59").getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance <= 0) {
+                document.querySelector(".countdown-container").innerHTML = "<h1>¡TIEMPO TERMINADO!</h1>";
+                document.querySelector(".mensaje-inferior").style.display = "none";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").textContent = String(days).padStart(2, '0');
+            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
+            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
+            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
+        };
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
     </div>
 
     <!-- Contenedor blanco -->
@@ -38,7 +98,7 @@
                     coaches, <br>formadores y expertos con una misión.
                 </strong>
             </h4><br>
-            <div style="
+            <div class="reserve-button" onclick="scrollToSection()" style="
             background-color: #00ff00;
             color: black;
             display: inline-flex;
@@ -46,6 +106,8 @@
             padding: 0.5cm;
             border-radius: 8px;
             font-size: 1.2em;
+            cursor: pointer;
+            transition: background-color 0.3s;
             font-weight: bold;">
                 Reserva tu cupo gratuito ahora
             </div>
@@ -248,7 +310,7 @@
             </div>
 
             <!-- Sección derecha (testimonio) - Ocupa 1/3 -->
-            <div class="col-md-4 p-4 p-lg-5" style="background-color: #24292e;">
+            <div id="targetSection" class="col-md-4 p-4 p-lg-5" style="background-color: #24292e;">
                 <p class="display-5 fw-bold mb-4 text-black text-center fs-2" style="color: #00FF00 !important;">
                     FORMULARIO DE REGISTRO</p>
                 <div class="col-auto text-center">
@@ -281,7 +343,30 @@
                         </div>
                     </div>
                 </div>
-
+                <script>
+                    function scrollToSection() {
+                        const target = document.getElementById('targetSection');
+                        const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+                        const startPosition = window.pageYOffset;
+                        const distance = targetPosition - startPosition;
+                        const duration = 400;
+                        let start = null;
+                        function animation(currentTime) {
+                            if (start === null) start = currentTime;
+                            const timeElapsed = currentTime - start;
+                            const run = ease(timeElapsed, startPosition, distance, duration);
+                            window.scrollTo(0, run);
+                            if (timeElapsed < duration) requestAnimationFrame(animation);
+                        }
+                        function ease(t, b, c, d) {
+                            t /= d / 2;
+                            if (t < 1) return c / 2 * t * t * t + b;
+                            t -= 2;
+                            return c / 2 * (t * t * t + 2) + b;
+                        }
+                        requestAnimationFrame(animation);
+                    }
+                </script>
             </div>
         </div>
     </div>
@@ -290,7 +375,8 @@
     <div class="custom-bg">
         <div class="text-center">
             <div class="quote">
-                “Este reto no se trata solo de crear un curso. <br>Se trata de convertir tu historia, tu dolor y tu experiencia... en un legado que te genere libertad.”
+                “Este reto no se trata solo de crear un curso. <br>Se trata de convertir tu historia, tu dolor y tu
+                experiencia... en un legado que te genere libertad.”
             </div>
             <div class="question">
                 ¿Estás listo para transformar tu vida en 3 días?
