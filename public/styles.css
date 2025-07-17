@@ -39,7 +39,7 @@ body {
 
 @media (max-width: 768px) {
   .progress-text {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
   }
 }
 
@@ -122,17 +122,17 @@ body {
   .countdown-title {
     font-size: 1.8rem;
   }
-  
+
   .countdown-container {
     gap: 18px;
     font-size: 2.7rem;
   }
-  
+
   .countdown-item {
     padding: 20px;
     min-width: 90px;
   }
-  
+
   .mensaje-inferior {
     font-size: 1.1rem;
     padding: 15px 20px;
@@ -144,20 +144,20 @@ body {
   .contenedor-negro {
     flex-direction: column;
   }
-  
+
   .w-md-50 {
     width: 100% !important;
   }
-  
+
   .countdown-wrapper {
     margin-top: 40px;
   }
-  
+
   .countdown-container {
     gap: 15px;
     font-size: 2.4rem;
   }
-  
+
   .countdown-item {
     min-width: 80px;
     padding: 18px;
@@ -170,28 +170,28 @@ body {
     font-size: 1.5rem;
     margin-bottom: 15px;
   }
-  
+
   .countdown-container {
     gap: 8px;
     font-size: 1.8rem;
   }
-  
+
   .countdown-item {
     padding: 12px 8px;
     min-width: 65px;
     border-radius: 10px;
   }
-  
+
   .label {
     font-size: 0.8rem;
   }
-  
+
   .mensaje-inferior {
     font-size: 1rem;
     padding: 12px 16px;
     margin-top: 25px;
   }
-  
+
   #num-cupos {
     font-size: 1.1rem;
   }
@@ -203,7 +203,7 @@ body {
     font-size: 1.5rem;
     gap: 5px;
   }
-  
+
   .countdown-item {
     min-width: 55px;
     padding: 10px 5px;
@@ -718,4 +718,21 @@ h3 {
   .question {
     font-size: 1rem;
   }
+}
+
+/************** RESPONSIVE DEL MODAL DE REGISTRO **************/
+
+@media (max-width: 576px) {
+  #registroExitosoModal .modal-content {
+    padding: 1rem !important;
+  }
+
+  #registroExitosoModal .modal-title {
+    font-size: 1rem !important;
+  }
+}
+
+#registroExitosoModal .modal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
 }
