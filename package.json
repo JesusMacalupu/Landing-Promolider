@@ -1,0 +1,24 @@
+{
+  "name": "landing-promolider",
+  "version": "1.0.0",
+  "main": "server_ponencia.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JesusMacalupu/Landing-Promolider.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JesusMacalupu/Landing-Promolider/issues"
+  },
+  "homepage": "https://github.com/JesusMacalupu/Landing-Promolider#readme",
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "mssql": "^11.0.1"
+  }
+}
