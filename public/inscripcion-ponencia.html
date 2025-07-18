@@ -367,17 +367,51 @@
                     </div>
                 </div>
 
-                <!-- Modal de Confirmación -->
+                <!-- Modal de Confirmación Centrado y Responsive Final -->
                 <div class="modal fade" id="registroExitosoModal" tabindex="-1" aria-labelledby="modalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
-                        <div class="modal-content"
-                            style="background-color: #00ff00; border-radius: 12px; padding: 0.75rem;">
-                            <div class="modal-body text-center p-2">
-                                <h5 class="modal-title fs-5 fw-semibold mb-0" id="modalLabel"
-                                    style="color: #000; font-weight: bold !important;">
-                                    Acabas de registrarte a la ponencia con éxito
-                                </h5>
+                        <div class="modal-content mx-auto"
+                            style="background-color: #2c2c2c; border-radius: 16px; padding: 1rem 1.5rem; width: 100%; max-width: 400px;">
+
+                            <!-- Botón de cierre "X" (responsive) -->
+                            <div class="position-absolute" style="top: 12px; right: 16px;">
+                                <button type="button" class="btn p-0 m-0 border-0" data-bs-dismiss="modal"
+                                    aria-label="Cerrar"
+                                    style="color: #00ff00; font-size: 1rem; font-weight: bold; background: none;">
+                                    ✕
+                                </button>
+                            </div>
+
+                            <!-- Contenido del modal -->
+                            <div class="modal-body text-center pt-4">
+
+                                <!-- Título -->
+                                <h4 class="text-white fw-bold mb-3" style="font-size: 1.8rem;">¡Felicitaciones!</h4>
+
+                                <!-- Imagen -->
+                                <img src="img-landing/persona-inscrita.png" alt="Persona inscrita"
+                                    style="width: 100px; height: auto; margin-bottom: 1rem;">
+
+                                <!-- Caja verde con mensaje -->
+                                <div
+                                    style="background-color: #00ff00; border-radius: 8px; padding: 1rem; margin-bottom: 1.5rem;">
+                                    <h5 class="modal-title fs-5 fw-semibold mb-0" id="modalLabel" style="color: #000;">
+                                        Acabas de registrarte a la ponencia con éxito
+                                    </h5>
+                                </div>
+
+                                <!-- Texto WhatsApp -->
+                                <p class="text-white fw-semibold mb-4" style="font-size: 1.1rem;">
+                                    Únete al Grupo de WhatsApp
+                                </p>
+
+                                <!-- Botón centrado -->
+                                <a href="https://promolider.org/" target="_blank" class="btn fw-bold" style="background-color: #00ff00; color: #000; border-radius: 8px;
+                                padding: 0.75rem 1.5rem; font-size: 1rem; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+                                transition: all 0.3s ease; display: inline-block; max-width: 100%;">
+                                    Ingresa Ahora
+                                </a>
                             </div>
                         </div>
                     </div>
