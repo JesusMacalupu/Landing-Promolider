@@ -80,7 +80,7 @@ app.post('/registrar', async (req, res) => {
       });
 
       await transporter.sendMail({
-        from: `"Ponencia Académica" <${process.env.GMAIL_USER}>`,
+        from: `"Promolíder" <${process.env.GMAIL_USER}>`,
         to: correo,
         subject: '✅ Confirmación de registro exitoso',
         html: htmlCorreo,
