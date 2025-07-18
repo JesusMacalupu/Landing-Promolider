@@ -17,6 +17,10 @@ const dbConfig = {
   }
 };
 
+// Variables para el control de registros
+let registrosActuales = 50;
+const TOTAL_CUPOS = 100;
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
@@ -25,7 +29,15 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'inscripcion-ponencia.html'));
 });
 
-// Registro en base de datos
+// Obtener estado actual
+app.get('/estado', (req, res) => {
+  res.json({
+    registros: registrosActuales,
+    cupos: TOTAL_CUPOS - registrosActuales
+  });
+});
+
+// Registrar nuevo participante
 app.post('/registrar', async (req, res) => {
   const { nombre, correo } = req.body;
 
@@ -39,7 +51,16 @@ app.post('/registrar', async (req, res) => {
       INSERT INTO RegistroFormulario (Nombre, Correo)
       VALUES (${nombre}, ${correo})
     `;
-    res.json({ exito: true });
+    
+    // Actualizar contadores
+    registrosActuales = Math.min(registrosActuales + 1, TOTAL_CUPOS);
+    const cuposDisponibles = TOTAL_CUPOS - registrosActuales;
+    
+    res.json({ 
+      exito: true,
+      registros: registrosActuales,
+      cupos: cuposDisponibles
+    });
   } catch (error) {
     console.error('❌ Error al registrar:', error);
     res.status(500).json({ exito: false, mensaje: 'Error en el servidor' });
@@ -59,4 +80,4 @@ const iniciarServidor = async () => {
   }
 };
 
-iniciarServidor();
+iniciarServidor(); 

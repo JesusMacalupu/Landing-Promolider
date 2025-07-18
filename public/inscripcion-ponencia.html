@@ -27,6 +27,14 @@
                 <div class="progress-bar"></div>
                 <div class="progress-text">50/100</div>
             </div>
+            <style>
+                .progress-bar {
+                    height: 100%;
+                    background-color: #4CAF50;
+                    width: 50%;
+                    transition: width 0.5s ease;
+                }
+            </style>
             <h2 class="highlight-green mt-4">¡LA CLASE EN VIVO COMIENZA PRONTO!</h2><br>
             <h5 class="text-light mb-2">Reto 3 días, descubre</h5><br>
             <h3 class="fw-bold text-white">
@@ -70,7 +78,7 @@
             const distance = targetDate - now;
 
             if (distance <= 0) {
-                document.querySelector(".countdown-container").innerHTML = "<h1>¡TIEMPO TERMINADO!</h1>";
+                document.querySelector(".countdown-container").innerHTML = "<h1>¡La ponencia acaba de empezar!</h1>";
                 document.querySelector(".mensaje-inferior").style.display = "none";
                 return;
             }
@@ -360,7 +368,8 @@
                         <div class="modal-content"
                             style="background-color: #00ff00; border-radius: 12px; padding: 0.75rem;">
                             <div class="modal-body text-center p-2">
-                                <h5 class="modal-title fs-5 fw-semibold mb-0" id="modalLabel" style="color: #000; font-weight: bold !important;">
+                                <h5 class="modal-title fs-5 fw-semibold mb-0" id="modalLabel"
+                                    style="color: #000; font-weight: bold !important;">
                                     Acabas de registrarte a la ponencia con éxito
                                 </h5>
                             </div>
@@ -421,6 +430,39 @@
     </div>
 
     <script>
+        // Función para actualizar la visualización
+        function actualizarContadores(registros, cupos) {
+            // Barra de progreso
+            const progressBar = document.querySelector('.progress-bar');
+            const progressText = document.querySelector('.progress-text');
+
+            // Actualizar con animación
+            progressBar.style.transition = 'width 0.5s ease';
+            progressBar.style.width = `${registros}%`;
+            progressText.textContent = `${registros}/100`;
+
+            // Cambiar color según el rango de registros
+            if (registros >= 50 && registros < 85) {
+                progressBar.style.backgroundColor = '#4CAF50'; // Verde
+            } else if (registros >= 85 && registros < 95) {
+                progressBar.style.backgroundColor = '#ffff00'; // Amarillo
+            } else if (registros >= 95 && registros <= 100) {
+                progressBar.style.backgroundColor = '#F44336'; // Rojo
+            }
+
+            // Cupos disponibles
+            document.getElementById('num-cupos').textContent = `Quedan ${cupos} cupos disponibles`;
+        }
+
+        // Obtener estado inicial al cargar la página
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/estado')
+                .then(res => res.json())
+                .then(data => actualizarContadores(data.registros, data.cupos))
+                .catch(err => console.error('Error:', err));
+        });
+
+        // Manejar envío del formulario
         document.getElementById('registroForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
@@ -440,9 +482,10 @@
                 .then(res => res.json())
                 .then(data => {
                     if (data.exito) {
+                        actualizarContadores(data.registros, data.cupos);
                         const modal = new bootstrap.Modal(document.getElementById('registroExitosoModal'));
                         modal.show();
-                        document.getElementById('registroForm').reset();
+                        this.reset();
                     } else {
                         alert('❌ Error al registrar: ' + (data.mensaje || 'Intenta nuevamente.'));
                     }
