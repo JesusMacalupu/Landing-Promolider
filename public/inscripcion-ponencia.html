@@ -352,6 +352,12 @@
                                         required>
                                     <span class="input-icon"><i class="bi bi-envelope"></i></span>
                                 </div>
+                                <div class="mb-3 position-relative">
+                                    <label for="telefono" class="form-label" style="font-weight: bold;">Teléfono</label>
+                                    <input type="tel" class="form-control" id="telefono"
+                                        placeholder="Ingresa tu teléfono" required>
+                                    <span class="input-icon"><i class="bi bi-telephone"></i></span>
+                                </div>
                                 <div class="text-center button-container">
                                     <button type="submit" class="btn btn-form" style="font-weight: bold;">Registrar mi
                                         Acceso</button>
@@ -430,31 +436,25 @@
     </div>
 
     <script>
-        // Función para actualizar la visualización
         function actualizarContadores(registros, cupos) {
-            // Barra de progreso
             const progressBar = document.querySelector('.progress-bar');
             const progressText = document.querySelector('.progress-text');
 
-            // Actualizar con animación
             progressBar.style.transition = 'width 0.5s ease';
             progressBar.style.width = `${registros}%`;
             progressText.textContent = `${registros}/100`;
 
-            // Cambiar color según el rango de registros
             if (registros >= 50 && registros < 85) {
-                progressBar.style.backgroundColor = '#4CAF50'; // Verde
+                progressBar.style.backgroundColor = '#4CAF50';
             } else if (registros >= 85 && registros < 95) {
-                progressBar.style.backgroundColor = '#ffff00'; // Amarillo
+                progressBar.style.backgroundColor = '#ffff00';
             } else if (registros >= 95 && registros <= 200) {
-                progressBar.style.backgroundColor = '#F44336'; // Rojo
+                progressBar.style.backgroundColor = '#F44336';
             }
 
-            // Cupos disponibles
             document.getElementById('num-cupos').textContent = `Quedan ${cupos} cupos disponibles`;
         }
 
-        // Obtener estado inicial al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
             fetch('/estado')
                 .then(res => res.json())
@@ -462,14 +462,14 @@
                 .catch(err => console.error('Error:', err));
         });
 
-        // Manejar envío del formulario
         document.getElementById('registroForm').addEventListener('submit', function (e) {
             e.preventDefault();
 
             const nombre = document.getElementById('nombre').value.trim();
             const correo = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
 
-            if (!nombre || !correo) {
+            if (!nombre || !correo || !telefono) {
                 alert('Por favor, llena todos los campos');
                 return;
             }
@@ -477,7 +477,7 @@
             fetch('/registrar', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ nombre, correo })
+                body: JSON.stringify({ nombre, correo, telefono })
             })
                 .then(res => res.json())
                 .then(data => {
@@ -496,6 +496,7 @@
                 });
         });
     </script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>

@@ -17,19 +17,16 @@ const dbConfig = {
   }
 };
 
-// Variables para el control de registros
 let registrosActuales = 50;
 const TOTAL_CUPOS = 100;
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 
-// Página principal
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'inscripcion-ponencia.html'));
 });
 
-// Obtener estado actual
 app.get('/estado', (req, res) => {
   res.json({
     registros: registrosActuales,
@@ -37,26 +34,24 @@ app.get('/estado', (req, res) => {
   });
 });
 
-// Registrar nuevo participante
 app.post('/registrar', async (req, res) => {
-  const { nombre, correo } = req.body;
+  const { nombre, correo, telefono } = req.body;
 
-  if (!nombre || !correo) {
+  if (!nombre || !correo || !telefono) {
     return res.status(400).json({ exito: false, mensaje: 'Faltan datos' });
   }
 
   try {
     await sql.connect(dbConfig);
     await sql.query`
-      INSERT INTO RegistroFormulario (Nombre, Correo)
-      VALUES (${nombre}, ${correo})
+      INSERT INTO RegistroFormulario (Nombre, Correo, Telefono)
+      VALUES (${nombre}, ${correo}, ${telefono})
     `;
-    
-    // Actualizar contadores
+
     registrosActuales = Math.min(registrosActuales + 1, TOTAL_CUPOS);
     const cuposDisponibles = TOTAL_CUPOS - registrosActuales;
-    
-    res.json({ 
+
+    res.json({
       exito: true,
       registros: registrosActuales,
       cupos: cuposDisponibles
@@ -67,7 +62,6 @@ app.post('/registrar', async (req, res) => {
   }
 });
 
-// Iniciar servidor
 const iniciarServidor = async () => {
   try {
     await sql.connect(dbConfig);
@@ -80,4 +74,4 @@ const iniciarServidor = async () => {
   }
 };
 
-iniciarServidor(); 
+iniciarServidor();
