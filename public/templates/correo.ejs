@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Registro</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .main-container {
+            background-color: #000000;
+            color: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .content-wrapper {
+            padding: 30px;
+        }
+        .header {
+            text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #00ff00;
+            margin-bottom: 25px;
+        }
+        .logo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 15px;
+            border: 3px solid #00ff00;
+            display: block;
+        }
+        h1 {
+            color: #00ff00;
+            font-size: 26px;
+            margin: 10px 0;
+        }
+        h2 {
+            color: #ffffff;
+            font-size: 20px;
+            margin: 15px 0 10px;
+        }
+        .challenge-text {
+            color: #ffffff;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 20px 0 15px;
+            line-height: 1.4;
+            text-transform: none;
+        }
+        .event-time {
+            background-color: #00ff00;
+            color: #000000;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .profile-section {
+            display: flex;
+            align-items: flex-start; /* Cambiado a flex-start para alinear arriba */
+            background: #111111;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 25px 0;
+            border-left: 4px solid #00ff00;
+        }
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 3px solid #00ff00;
+        }
+        .profile-info {
+            flex: 1;
+            text-align: left; /* Asegura alineación izquierda */
+        }
+        .profile-name {
+            color: #00ff00;
+            font-size: 18px;
+            margin-bottom: 5px;
+            font-weight: bold;
+            text-align: left; /* Alineación izquierda */
+        }
+        .whatsapp-btn-container {
+            margin: 30px -30px -30px;
+            padding: 0 30px 30px;
+        }
+        .whatsapp-btn {
+            display: block;
+            background-color: #00ff00;
+            color: #000000;
+            text-align: center;
+            padding: 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            width: 100%;
+            transition: all 0.3s;
+            box-sizing: border-box;
+            border: none;
+            cursor: pointer;
+            letter-spacing: 0.5px;
+        }
+        .whatsapp-btn:hover {
+            background-color: #00cc00;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,255,0,0.3);
+        }
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #888888;
+            font-size: 12px;
+            border-top: 1px solid #333333;
+            padding-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <center>
+    <div class="main-container">
+        <div class="content-wrapper">
+            <div class="header">
+                <img src="cid:logoImage" alt="Promolider" class="logo">
+                <h1>¡Felicitaciones <%= nombre %>!</h1>
+                <h2>Acabas de registrarte a la ponencia con éxito</h2>
+            </div>
+
+            <div class="challenge-text">
+                Reto 3 días, descubre:<br>
+                "El sistema que permite a productores<br>
+                ganar sin vender directamente"
+            </div>
+
+            <div class="event-time">
+                La ponencia empezará el día 00 de julio a las 00:00 p.m
+            </div>
+
+            <div class="profile-section">
+                <img src="cid:ponenteImage" alt="Jheff Ponce" class="profile-pic">
+                <div class="profile-info">
+                    <div class="profile-name">Jheff Ponce</div>
+                    <p style="text-align: left;"><strong>Coach oficial de Promolider para Latinoamérica</strong></p>
+                    <p style="text-align: left;">Ha ayudado a cientos de profesionales a digitalizar sus conocimientos y construir ingresos residuales con sistemas probados.</p>
+                </div>
+            </div>
+
+            <div class="whatsapp-btn-container">
+                <a href="https://chat.whatsapp.com/Gy9KxKwTfKs0Bw6GTeS57N?mode=ac_t" class="whatsapp-btn" style="color: #000000;">
+                    ÚNETE AL GRUPO DE WHATSAPP
+                </a>
+            </div>
+
+            <div class="footer">
+                <p>© <%= new Date().getFullYear() %> Promolíder. Todos los derechos reservados.</p>
+                <p>Este es un mensaje automático, por favor no respondas a este correo.</p>
+            </div>
+        </div>
+    </div>
+    </center>
+</body>
+</html>

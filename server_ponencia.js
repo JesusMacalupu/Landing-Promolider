@@ -1,9 +1,15 @@
 const express = require('express');
 const sql = require('mssql');
 const path = require('path');
+const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 const app = express();
 const port = 5002;
+
+// Configuración de EJS
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'public', 'templates'));
 
 const dbConfig = {
   user: 'sa',
@@ -16,6 +22,14 @@ const dbConfig = {
     trustServerCertificate: true
   }
 };
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS
+  }
+});
 
 let registrosActuales = 50;
 const TOTAL_CUPOS = 100;
@@ -50,6 +64,43 @@ app.post('/registrar', async (req, res) => {
 
     registrosActuales = Math.min(registrosActuales + 1, TOTAL_CUPOS);
     const cuposDisponibles = TOTAL_CUPOS - registrosActuales;
+
+    // Renderizar y enviar correo
+    try {
+      const htmlCorreo = await new Promise((resolve, reject) => {
+        app.render('correo', {
+          nombre,
+          correo,
+          telefono,
+          fecha: new Date().toLocaleDateString('es-MX')
+        }, (err, html) => {
+          if (err) reject(err);
+          else resolve(html);
+        });
+      });
+
+      await transporter.sendMail({
+        from: `"Ponencia Académica" <${process.env.GMAIL_USER}>`,
+        to: correo,
+        subject: '✅ Confirmación de registro exitoso',
+        html: htmlCorreo,
+        attachments: [
+          {
+            filename: 'miniLogo.webp',
+            path: path.join(__dirname, 'public', 'img-landing', 'miniLogo.webp'),
+            cid: 'logoImage' // ID único para la primera imagen
+          },
+          {
+            filename: 'ponente-promolider.png',
+            path: path.join(__dirname, 'public', 'img-landing', 'ponente-promolider.png'),
+            cid: 'ponenteImage' // ID único para la segunda imagen
+          }
+        ]
+      });
+      console.log(`Correo enviado a: ${correo}`);
+    } catch (emailError) {
+      console.error('Error al enviar correo:', emailError);
+    }
 
     res.json({
       exito: true,
