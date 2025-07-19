@@ -4,7 +4,13 @@ const path = require('path');
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
+const http = require('http');
+const { Server } = require('socket.io');
+const { io: clientIO } = require('socket.io-client');
+
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server); // Socket.IO como servidor
 const port = 5002;
 
 // Configuración de EJS
@@ -48,6 +54,12 @@ app.get('/estado', (req, res) => {
   });
 });
 
+// Endpoint accesible desde 5004
+app.get('/estado-local', (req, res) => {
+  res.json({ mensaje: 'Estado local desde 5002', desde: '5002' });
+});
+
+// POST de registro
 app.post('/registrar', async (req, res) => {
   const { nombre, correo, telefono } = req.body;
 
@@ -65,7 +77,7 @@ app.post('/registrar', async (req, res) => {
     registrosActuales = Math.min(registrosActuales + 1, TOTAL_CUPOS);
     const cuposDisponibles = TOTAL_CUPOS - registrosActuales;
 
-    // Renderizar y enviar correo
+    // Enviar correo
     try {
       const htmlCorreo = await new Promise((resolve, reject) => {
         app.render('correo', {
@@ -88,15 +100,16 @@ app.post('/registrar', async (req, res) => {
           {
             filename: 'miniLogo.webp',
             path: path.join(__dirname, 'public', 'img-landing', 'miniLogo.webp'),
-            cid: 'logoImage' // ID único para la primera imagen
+            cid: 'logoImage'
           },
           {
             filename: 'ponente-promolider.png',
             path: path.join(__dirname, 'public', 'img-landing', 'ponente-promolider.png'),
-            cid: 'ponenteImage' // ID único para la segunda imagen
+            cid: 'ponenteImage'
           }
         ]
       });
+
       console.log(`Correo enviado a: ${correo}`);
     } catch (emailError) {
       console.error('Error al enviar correo:', emailError);
@@ -107,17 +120,38 @@ app.post('/registrar', async (req, res) => {
       registros: registrosActuales,
       cupos: cuposDisponibles
     });
+
   } catch (error) {
     console.error('❌ Error al registrar:', error);
     res.status(500).json({ exito: false, mensaje: 'Error en el servidor' });
   }
 });
 
+// === 🔌 Comunicación Bidireccional con puerto 5004 ===
+
+// Cliente conectado a 5004
+const socket5004 = clientIO('http://localhost:5004');
+socket5004.on('connect', () => {
+  console.log('🔌 5002 conectado como cliente a 5004');
+});
+socket5004.on('mensaje-desde-5004', (data) => {
+  console.log('📥 [5002] Mensaje recibido de 5004:', data);
+});
+
+// Escuchar conexiones entrantes desde 5004
+io.on('connection', (socket) => {
+  console.log('📡 [5002] Cliente conectado');
+  socket.on('mensaje-desde-5004', (data) => {
+    console.log('📨 [5002] Evento recibido desde 5004:', data);
+  });
+});
+
+// Iniciar servidor
 const iniciarServidor = async () => {
   try {
     await sql.connect(dbConfig);
     console.log('✅ Conectado a la base de datos');
-    app.listen(port, () => {
+    server.listen(port, () => {
       console.log(`✅ Servidor corriendo en http://localhost:${port}`);
     });
   } catch (error) {
