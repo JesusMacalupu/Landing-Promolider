@@ -103,30 +103,36 @@
     </div>
 
     <script>
-        // Fecha de destino
-        const targetDate = new Date("2025-12-31T23:59:59").getTime();
+        const updateCountdown = async () => {
+            try {
+                // Obtener la fecha desde el servidor
+                const response = await fetch('/api/get-date');
+                const { targetDate } = await response.json();
+                const target = new Date(targetDate).getTime();
+                const now = new Date().getTime();
+                const distance = target - now;
 
-        const updateCountdown = () => {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
+                if (distance <= 0) {
+                    document.querySelector('.countdown-container').innerHTML = '<h1>¡La ponencia acaba de empezar!</h1>';
+                    document.querySelector('.mensaje-inferior').style.display = 'none';
+                    return;
+                }
 
-            if (distance <= 0) {
-                document.querySelector(".countdown-container").innerHTML = "<h1>¡La ponencia acaba de empezar!</h1>";
-                document.querySelector(".mensaje-inferior").style.display = "none";
-                return;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById('days').textContent = String(days).padStart(2, '0');
+                document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+                document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+                document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+            } catch (error) {
+                console.error('Error al actualizar la cuenta regresiva:', error);
             }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").textContent = String(days).padStart(2, '0');
-            document.getElementById("hours").textContent = String(hours).padStart(2, '0');
-            document.getElementById("minutes").textContent = String(minutes).padStart(2, '0');
-            document.getElementById("seconds").textContent = String(seconds).padStart(2, '0');
         };
 
+        // Actualizar cada segundo
         setInterval(updateCountdown, 1000);
         updateCountdown();
     </script>

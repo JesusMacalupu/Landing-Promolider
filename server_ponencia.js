@@ -1,6 +1,7 @@
 const express = require('express');
 const sql = require('mssql');
 const path = require('path');
+const fs = require('fs').promises;
 const nodemailer = require('nodemailer');
 require('dotenv').config();
 
@@ -126,6 +127,35 @@ app.post('/registrar', async (req, res) => {
     res.status(500).json({ exito: false, mensaje: 'Error en el servidor' });
   }
 });
+
+// Ruta para recibir la nueva fecha desde el servidor 5004
+app.post('/api/update-date', async (req, res) => {
+    try {
+        const { targetDate } = req.body;
+        if (!targetDate) {
+            return res.status(400).json({ error: 'Fecha de destino requerida' });
+        }
+
+        // Guardar la fecha en un archivo JSON
+        await fs.writeFile('targetDate.json', JSON.stringify({ targetDate }));
+        res.json({ message: 'Fecha actualizada correctamente' });
+    } catch (error) {
+        console.error('Error en /api/update-date:', error.message);
+        res.status(500).json({ error: 'Error al procesar la solicitud' });
+    }
+});
+
+// Ruta para obtener la fecha actual
+app.get('/api/get-date', async (req, res) => {
+    try {
+        const data = await fs.readFile('targetDate.json', 'utf8');
+        const { targetDate } = JSON.parse(data);
+        res.json({ targetDate });
+    } catch (error) {
+        // Si no hay archivo, usar una fecha por defecto
+        res.json({ targetDate: new Date('2025-12-31T23:59:59').toISOString() });
+    }
+}); 
 
 // === 🔌 Comunicación Bidireccional con puerto 5004 ===
 
